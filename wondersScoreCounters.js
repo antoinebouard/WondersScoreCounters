@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Wonders Score Counters
 // @namespace    http://tampermonkey.net/
-// @version      0.1
+// @version      0.2
 // @description  Counts the wonders score for each alliance by additionning the level of each wonders.
 // @author       Draub
 // @match        https://*.grepolis.com/game/*
@@ -14,6 +14,8 @@
 (function() {
     'use strict';
     function countWondersScore() {
+        // Tableau des points par niveau de merveilles
+        const levelWondersScore = new Array(0,1,3,6,10,15,21,28,36,45,55);
         // Selection de l'écran des merveilles
         const wonderdiv = document.getElementsByClassName("world_wonders_info");
         // Sélection du tableau
@@ -53,7 +55,7 @@
                 const level = parseInt(column.getAttribute('data-level'));
 
                 // Ajout de la valeur de data-level à la somme
-                sum += level;
+                sum += levelWondersScore[level];
             });
 
             // Création d'une nouvelle colonne pour afficher le score
